@@ -8,6 +8,7 @@ function addToList(){
       var button = document.createElement("button");
       button.classList.add("button");
       button.innerHTML = x.value;
+      button.class = "symptom_button";
 
       // 2. Append somewhere
       var body = document.getElementById("search bar forum");
@@ -23,6 +24,25 @@ function addToList(){
 
       if (list.length>=3) document.getElementById("add_button").classList.add("disabled");
       console.log(list);
+}
+
+function addFromBar(value){
+      list.push(value.toLowerCase());
+
+      var button = document.createElement("button");
+      button.classList.add("symptom_button");
+      button.innerHTML = value;
+      
+
+      // 2. Append somewhere
+      var body = document.getElementById("search bar forum");
+      body.appendChild(button);
+
+      button.addEventListener ("click", function() {
+      body.removeChild(button);
+      var index = list.indexOf(button.innerHTML.toLowerCase());
+      if (index !== -1) list.splice(index, 1);
+      })
 }
 
 function autocomplete(inp, arr) {
@@ -57,7 +77,9 @@ function autocomplete(inp, arr) {
           b.addEventListener("click", function(e) {
               /*insert the value for the autocomplete text field:*/
               inp.value = this.getElementsByTagName("input")[0].value;
-              /*close the list of autocompleted values,
+              
+              addFromBar(inp.value);
+               /*close the list of autocompleted values,
               (or any other open lists of autocompleted values:*/
               closeAllLists();
           });
